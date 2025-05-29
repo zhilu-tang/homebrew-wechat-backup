@@ -19,7 +19,7 @@ class WechatBackup < Formula
     end
 
     # 创建 launchd 配置文件
-    (bin/"homebrew.mxcl.wechat-backup.plist").write plist
+    ("#{opt_bin}/homebrew.mxcl.wechat-backup.plist").write plist
   end
 
   def caveats
@@ -33,24 +33,19 @@ class WechatBackup < Formula
 
   def plist
     <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.commit1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
-      <dict>
-        <key>Label</key>
-        <string>#{plist_name}</string>
-        <key>ProgramArguments</key>
-        <array>
-          <string>#{opt_bin}/wechat-backup</string>
-          <string>--service</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>StandardOutPath</key>
-        <string>/tmp/wechat-backup.log</string>
-        <key>StandardErrorPath</key>
-        <string>/tmp/wechat-backup.log</string>
-      </dict>
+        <dict>
+          <key>Label</key>
+          <string>homebrew.mxcl.wechat-backup</string>
+          <key>ProgramArguments</key>
+          <array>
+            <string>#{opt_bin}/wechat-backup</string>
+          </array>
+          <key>RunAtLoad</key>
+          <true/>
+        </dict>
       </plist>
     EOS
   end
