@@ -12,7 +12,7 @@ class WechatBackup < Formula
     system "git", "clone", "--branch", "main", "https://github.com/zhilu-tang/wechat-backup.git", "wechat-backup"
     cd "wechat-backup" do
       # 使用 install.sh 脚本进行安装
-      system "bash" "./install/brew_install.sh"
+      system "bash" "-x" "./install/brew_install.sh"
       # 安装到 Homebrew 的 bin 目录
       bin.install "dist/wechat-backup"
       bin.install "dist/wechat-backup-manage"
