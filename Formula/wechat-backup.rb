@@ -8,8 +8,8 @@ class WechatBackup < Formula
   depends_on "pyinstaller" => :build
 
   def install
-    # 克隆仓库
-    system "git", "clone", "https://github.com/zhilu-tang/wechat-backback"
+    # 克隆仓库，指定 main 分支
+    system "git", "clone", "--branch", "main", "https://github.com/zhilu-tang/homebrew-wechat-backup.git", "wechat-backup"
     cd "wechat-backup" do
       # 使用 install.sh 脚本进行安装
       system "./install/brew_install.sh"
