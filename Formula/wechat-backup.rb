@@ -2,7 +2,7 @@ class WechatBackup < Formula
   desc "Automatically backup WeChat images and videos to a specified directory"
   homepage "https://github.com/zhilu-tang/wechat-backup"
   url "https://github.com/zhilu-tang/wechat-backup/archive/v1.0.0.tar.gz"
-  sha256 "979f808243ecf07dc600dfed8485f0d876a412a809675b289f09efd92be17798"
+  sha256 "92f01714f2f957e85f9301789723cb6fe60a89d4b0f38c2c20cb26da78e0112c"
 
   depends_on "python@3.9" => :build
 
