@@ -18,22 +18,17 @@ class WechatBackup < Formula
       bin.install "dist/wechat-backup-manage"
     end
 
-    # 创建 launchd 配置文件
-    ("#{opt_bin}/homebrew.mxcl.wechat-backup.plist").write plist
-  end
+    # Install Python script
+    libexec.install Dir["*"]
+    bin.install_symlink libexec/"wechat-backup"
 
-  def caveats
-    <<~EOS
-      To have launchd start wechat-backup now and restart at login:
-        brew services start wechat-backup
-      Or, if you don't want/need a background service you can just run:
-        #{bin}/wechat-backup
-    EOS
+    # Install plist in user's LaunchAgents directory
+    (prefix/"homebrew.mxcl.wechat-backup.plist").write plist
   end
 
   def plist
     <<~EOS
-      <?xml version="1.commit1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
         <dict>
@@ -45,10 +40,38 @@ class WechatBackup < Formula
           </array>
           <key>RunAtLoad</key>
           <true/>
+          <key>StandardOutPath</key>
+          <string>#{var}/log/wechat-backup.log</string>
+          <key>StandardErrorPath</key>
+          <string>#{var}/log/wechat-backup.log</string>
         </dict>
       </plist>
     EOS
   end
+
+  def post_install
+    # Create the plist in the user's LaunchAgents directory
+    user_plist = "#{Dir.home}/Library/LaunchAgents/homebrew.mxcl.wechat-backup.plist"
+    system "cp", "#{prefix}/homebrew.mxcl.wechat-backup.plist", user_plist
+    system "launchctl", "load", "-w", user_plist
+  end
+
+  def uninstall
+    # Remove the plist from the user's LaunchAgents directory
+    user_plist = "#{Dir.home}/Library/LaunchAgents/homebrew.mxcl.wechat-backup.plist"
+    system "launchctl", "unload", "-w", user_plist
+    system "rm", user_plist
+  end
+
+  def caveats
+    <<~EOS
+      To have launchd start wechat-backup now and restart at login:
+        brew services start wechat-backup
+      Or, if you don't want/need a background service you can just run:
+        #{bin}/wechat-backup
+    EOS
+  end
+
 
   test do
     system "#{bin}/wechat-backup", "--version"
