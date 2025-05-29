@@ -1,7 +1,7 @@
 class WechatBackup < Formula
   desc "Automatically backup WeChat images and videos to a specified directory"
-  homepage "https://github.com/zhilu-tang/wechat-backup"
-  url "https://github.com/zhilu-tang/wechat-backup.git"
+  homepage "https://github.com/zhilu-tang/homebrew-wechat-backup"
+  url "https://github.com/zhilu-tang/homebrew-wechat-backup.git"
   version "1.0.2"
 
   depends_on "python@3.9" => :build
