@@ -1,7 +1,7 @@
 class WechatBackup < Formula
   desc "Automatically backup WeChat images and videos to a specified directory"
-  homepage "https://github.com/zhilu-tang/homebrew-wechat-backup"
-  url "https://github.com/zhilu-tang/homebrew-wechat-backup.git"
+  homepage "https://github.com/zhilu-tang/wechat-backup"
+  url "https://github.com/zhilu-tang/wechat-backup.git"
   version "1.0.2"
 
   depends_on "python@3.9" => :build
@@ -9,10 +9,10 @@ class WechatBackup < Formula
 
   def install
     # 克隆仓库
-    system "git", "clone", "https://github.com/zhilu-tang/wechat-backup.git", "wechat-backup"
+    system "git", "clone", "https://github.com/zhilu-tang/wechat-backback"
     cd "wechat-backup" do
-      # 打包脚本
-      system "pyinstaller", "--onefile", "wechat_backup.py"
+      # 使用 install.sh 脚本进行安装
+      system "./install/brew_install.sh"
       # 安装到 Homebrew 的 bin 目录
       bin.install "dist/wechat-backup"
       bin.install "dist/wechat-backup-manage"
