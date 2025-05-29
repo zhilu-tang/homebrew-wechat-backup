@@ -1,14 +1,22 @@
 class WechatBackup < Formula
   desc "Automatically backup WeChat images and videos to a specified directory"
   homepage "https://github.com/zhilu-tang/wechat-backup"
-  url "https://github.com/zhilu-tang/wechat-backup/archive/v1.0.1.tar.gz"
-  sha256 "575c2867a956bf1140d9d02ce0bd1b703a9488622f53198dcf9302640a40003c"
+  url "https://github.com/zhilu-tang/wechat-backup.git"
+  version "1.0.2"
 
   depends_on "python@3.9" => :build
+  depends_on "pyinstaller" => :build
 
   def install
-    bin.install "release/v1.0.0/wechat-backup"
-    bin.install "release/v1.0.0/wechat-backup-manage"
+    # 克隆仓库
+    system "git", "clone", "https://github.com/zhilu-tang/wechat-backup.git", "wechat-backup"
+    cd "wechat-backup" do
+      # 打包脚本
+      system "pyinstaller", "--onefile", "wechat_backup.py"
+      # 安装到 Homebrew 的 bin 目录
+      bin.install "dist/wechat-backup"
+      bin.install "dist/wechat-backup-manage"
+    end
 
     # 创建 launchd 配置文件
     (prefix/"com.zhilu.tang.wechat-backup.plist").write <<~EOS
@@ -21,6 +29,7 @@ class WechatBackup < Formula
         <key>ProgramArguments</key>
         <array>
           <string>#{bin}/wechat-backup</string>
+          <string>--service</string>
         </array>
         <key>RunAtLoad</key>
         <true/>
