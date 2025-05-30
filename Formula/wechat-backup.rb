@@ -28,6 +28,8 @@ class WechatBackup < Formula
       # 打包 manage_rules.py，并指定 sync 目录到 PYTHONPATH
       system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
          "--name=wechat-backup-manage",
+         "--hidden-import=PIL",
+         "--hidden-import=PIL.ImageTk",
          "--paths=#{Dir.pwd}/sync",
          "sync/manage_rules.py"      # 安装到 Homebrew 的 bin 目录
       bin.install "dist/wechat-backup"
