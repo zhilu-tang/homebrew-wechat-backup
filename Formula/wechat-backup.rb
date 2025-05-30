@@ -6,7 +6,10 @@ class WechatBackup < Formula
 
   depends_on "python@3.9" => :build
   depends_on "pyinstaller" => :build
-  depends_on "tcl-tk" => :build
+  depends_on "tcl-tk"
+  depends_on "watchdog"     # 直接通过Homebrew安装
+  depends_on "pillow"       # Homebrew有现成的pillow包
+  depends_on "sqlite3"       # Homebrew有现成的pillow包
 
   def install
     # 克隆仓库，指定 main 分支
@@ -14,8 +17,8 @@ class WechatBackup < Formula
     cd "wechat-backup" do
       # 使用 install.sh 脚本进行安装
 #       system "bash" "./install/brew_install.sh"
-      python = Formula["python@3.9"].opt_bin/"python3"
-      system python, "-m", "pip", "install", "-r", "requirements.txt"
+#       python = Formula["python@3.9"].opt_bin/"python3"
+#       system python, "-m", "pip", "install", "-r", "requirements.txt"
 
       # 打包主程序 wechat_backup.py
       system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
