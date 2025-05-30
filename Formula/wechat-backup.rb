@@ -4,9 +4,9 @@ class WechatBackup < Formula
   url "https://github.com/zhilu-tang/homebrew-wechat-backup.git"
   version "1.0.2"
 
-  depends_on "python@3.9" => :build
+  depends_on "python@3.12" => :build
   depends_on "pyinstaller" => :build
-  depends_on "python-tk@3.9"
+  depends_on "python-tk@3.12"
   depends_on "watchdog"     # 直接通过Homebrew安装
   depends_on "pillow"       # Homebrew有现成的pillow包
   depends_on "sqlite3"       # Homebrew有现成的pillow包
@@ -37,8 +37,8 @@ class WechatBackup < Formula
     end
 
     # Install Python script
-    libexec.install Dir["*"]
-    bin.install_symlink libexec/"wechat-backup"
+#     libexec.install Dir["*"]
+#     bin.install_symlink libexec/"wechat-backup"
 
     # Install plist in user's LaunchAgents directory
     (prefix/"homebrew.mxcl.wechat-backup.plist").write plist
