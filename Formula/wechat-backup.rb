@@ -12,8 +12,17 @@ class WechatBackup < Formula
     system "git", "clone", "--branch", "main", "https://github.com/zhilu-tang/wechat-backup.git", "wechat-backup"
     cd "wechat-backup" do
       # 使用 install.sh 脚本进行安装
-      system "bash" "-x" "./install/brew_install.sh"
-      # 安装到 Homebrew 的 bin 目录
+#       system "bash" "./install/brew_install.sh"
+      # 打包主程序 wechat_backup.py
+      system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
+             "--name=wechat-backup",
+             "wechat_backup.py"
+
+      # 打包 manage_rules.py，并指定 sync 目录到 PYTHONPATH
+      system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
+         "--name=wechat-backup-manage",
+         "--paths=#{Dir.pwd}/sync",
+         "sync/manage_rules.py"      # 安装到 Homebrew 的 bin 目录
       bin.install "dist/wechat-backup"
       bin.install "dist/wechat-backup-manage"
     end
