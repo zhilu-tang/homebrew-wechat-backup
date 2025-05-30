@@ -6,6 +6,7 @@ class WechatBackup < Formula
 
   depends_on "python@3.9" => :build
   depends_on "pyinstaller" => :build
+  depends_on "tcl-tk" => :build
 
   def install
     # 克隆仓库，指定 main 分支
