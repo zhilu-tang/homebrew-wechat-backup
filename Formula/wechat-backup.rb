@@ -13,6 +13,9 @@ class WechatBackup < Formula
     cd "wechat-backup" do
       # 使用 install.sh 脚本进行安装
 #       system "bash" "./install/brew_install.sh"
+      python = Formula["python@3.9"].opt_bin/"python3"
+      system python, "-m", "pip", "install", "-r", "requirements.txt"
+
       # 打包主程序 wechat_backup.py
       system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
              "--name=wechat-backup",
