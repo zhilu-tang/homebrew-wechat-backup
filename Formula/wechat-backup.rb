@@ -22,6 +22,7 @@ class WechatBackup < Formula
       # 打包主程序 wechat_backup.py
       system Formula["pyinstaller"].opt_bin/"pyinstaller", "--onefile",
              "--name=wechat-backup",
+             "--hidden-import=watchdog",
              "wechat_backup.py"
 
       # 打包 manage_rules.py，并指定 sync 目录到 PYTHONPATH
