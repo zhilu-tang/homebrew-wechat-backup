@@ -6,7 +6,7 @@ class WechatBackup < Formula
 
   depends_on "python@3.9" => :build
   depends_on "pyinstaller" => :build
-  depends_on "tcl-tk"
+  depends_on "python-tk@3.9"
   depends_on "watchdog"     # 直接通过Homebrew安装
   depends_on "pillow"       # Homebrew有现成的pillow包
   depends_on "sqlite3"       # Homebrew有现成的pillow包
